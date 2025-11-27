@@ -1,20 +1,35 @@
 package com.leo.primeiro_spring.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+@Entity
 public class Cliente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String email;
 
-    public Cliente(Long id, String nome, String email) {
-        this.id = id;
+    // Construtor padrão (necessário para o JPA)
+    public Cliente() {}
+
+    // Construtor útil para testes
+    public Cliente(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
 
+    // getters e setters
     public Long getId() {
         return id;
     }
 
+    // sem setter para id caso queira travar; mas você pode manter
     public void setId(Long id) {
         this.id = id;
     }
@@ -22,7 +37,6 @@ public class Cliente {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -30,7 +44,6 @@ public class Cliente {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
