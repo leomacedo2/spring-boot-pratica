@@ -2,10 +2,13 @@ package com.leo.primeiro_spring.controllers;
 
 import com.leo.primeiro_spring.models.Cliente;
 import com.leo.primeiro_spring.repositories.ClienteRepository;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
+
+@SuppressWarnings("null")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -29,21 +32,25 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Cliente> buscar(@PathVariable Long id) {
-        return repository.findById(id);
+    public ResponseEntity<Cliente> buscar(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public Cliente atualizar(@PathVariable Long id, @RequestBody Cliente novo) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente novo) {
         return repository.findById(id)
                 .map(cliente -> {
                     cliente.setNome(novo.getNome());
                     cliente.setEmail(novo.getEmail());
-                    return repository.save(cliente);
+                    Cliente atualizado = repository.save(cliente);
+                    return ResponseEntity.ok(atualizado);
                 })
                 .orElseGet(() -> {
                     novo.setId(id);
-                    return repository.save(novo);
+                    Cliente criado = repository.save(novo);
+                    return ResponseEntity.ok(criado);
                 });
     }
 
