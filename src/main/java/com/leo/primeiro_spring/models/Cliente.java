@@ -2,6 +2,8 @@ package com.leo.primeiro_spring.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -12,7 +14,11 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome não pode ser vazio")
     private String nome;
+
+    @Email(message = "Email inválido")
+    @NotBlank(message = "O email não pode ser vazio")
     private String email;
 
     // Construtor padrão (necessário para o JPA)

@@ -3,6 +3,8 @@ package com.leo.primeiro_spring.controllers;
 import com.leo.primeiro_spring.models.Cliente;
 import com.leo.primeiro_spring.repositories.ClienteRepository;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -26,7 +28,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente criar(@RequestBody Cliente cliente) {
+    public Cliente criar(@Valid @RequestBody Cliente cliente) {
         // ao salvar, o id será gerado automaticamente pelo banco
         return repository.save(cliente);
     }
@@ -39,7 +41,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente novo) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @Valid @RequestBody Cliente novo) {
         return repository.findById(id)
                 .map(cliente -> {
                     cliente.setNome(novo.getNome());
