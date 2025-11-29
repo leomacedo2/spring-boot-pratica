@@ -17,6 +17,7 @@ public class Cliente {
     @NotBlank(message = "O nome não pode ser vazio")
     private String nome;
 
+    // Validação de email
     @Email(message = "Email inválido")
     @NotBlank(message = "O email não pode ser vazio")
     private String email;
