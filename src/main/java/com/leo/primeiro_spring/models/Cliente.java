@@ -14,6 +14,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Validação de nome
     @NotBlank(message = "O nome não pode ser vazio")
     private String nome;
 
