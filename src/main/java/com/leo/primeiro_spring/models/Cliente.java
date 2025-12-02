@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 @Entity
 public class Cliente {
 
-    // Identificador único do cliente
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
